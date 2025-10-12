@@ -1,0 +1,36 @@
+{
+  "kmeans": {
+    "silhouette": {
+      "value": 0.24342439479674616,
+      "rating": "Good structure",
+      "stars": "\u2b50\u2b50\u2b50"
+    },
+    "davies_bouldin": {
+      "value": 1.1255812939541727,
+      "rating": "Good separation",
+      "stars": "\u2b50\u2b50\u2b50\u2b50"
+    },
+    "calinski_harabasz": {
+      "value": 401.2165570195568,
+      "rating": "Very good clustering",
+      "stars": "\u2b50\u2b50\u2b50\u2b50\u2b50"
+    }
+  },
+  "gmm": {
+    "silhouette": {
+      "value": 0.11415573626733086,
+      "rating": "Weak structure",
+      "stars": "\u2b50"
+    },
+    "davies_bouldin": {
+      "value": 1.607436202617,
+      "rating": "Fair separation",
+      "stars": "\u2b50\u2b50\u2b50"
+    },
+    "calinski_harabasz": {
+      "value": 239.3189340645003,
+      "rating": "Good clustering",
+      "stars": "\u2b50\u2b50\u2b50\u2b50"
+    }
+  }
+}

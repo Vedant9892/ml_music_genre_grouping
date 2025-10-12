@@ -1,0 +1,35 @@
+{
+    "kmeans": {
+        "silhouette_score": 0.2422156199738255,
+        "davies_bouldin_index": 1.129385292405334,
+        "calinski_harabasz_index": 363.55760100179145,
+        "inertia": 1161.4215437287833,
+        "n_clusters": 10
+    },
+    "gmm": {
+        "silhouette_score": 0.09615706385218985,
+        "davies_bouldin_index": 1.6423054438363576,
+        "bic_score": -2221.3109610370443,
+        "aic_score": -3247.031814344311,
+        "converged": true,
+        "n_components": 10
+    },
+    "pca": {
+        "explained_variance_ratio": [
+            0.49079327433353015,
+            0.3677070858072883
+        ],
+        "total_variance_explained": 85.85003601408184
+    },
+    "dataset": {
+        "total_songs": 1000,
+        "n_features": 5,
+        "features": [
+            "tempo",
+            "energy",
+            "loudness",
+            "valence",
+            "danceability"
+        ]
+    }
+}
