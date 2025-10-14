@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Genre Clustering Dashboard - ML Project</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Interactive dashboard for music genre clustering using K-Means and GMM algorithms">
+    <meta name="author" content="Vedant">
+    <meta name="keywords" content="music, clustering, machine learning, PCA, K-Means, GMM, GTZAN">
+</head>
+<body>
+    <!-- ========================================
+         HEADER - Hide on Scroll
+         ======================================== -->
+    <header>
+        <div class="container">
+            <h1>🎵 Music Genre Clustering Dashboard</h1>
+            <p class="subtitle">ML Project - Unsupervised Learning with K-Means & GMM | GTZAN Dataset</p>
+        </div>
+    </header>
+
+    <!-- ========================================
+         MAIN CONTENT
+         ======================================== -->
+    <main class="container">
+        
+        <!-- ========================================
+             MODEL INFORMATION SECTION
+             ======================================== -->
+        <section id="model-info-section" class="section">
+            <h2>🎯 Model Features & Performance</h2>
+            
+            <!-- Audio Features -->
+            <div class="subsection">
+                <h3>Audio Features (5 Dimensions)</h3>
+                <div id="features-container" class="features-grid"></div>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div class="subsection">
+                <h3>K-Means Performance Metrics</h3>
+                <div id="kmeans-metrics" class="metrics-grid"></div>
+            </div>
+
+            <!-- Algorithm Comparison -->
+            <div class="subsection">
+                <h3>Algorithm Comparison</h3>
+                <div class="comparison-note">
+                    <p><strong>Winner: K-Means</strong> - Superior performance with better Silhouette Score (0.2434 vs 0.1142) and excellent cluster separation (Davies-Bouldin: 1.1256).</p>
+                    <p>K-Means provides clear, interpretable cluster assignments with excellent separation, making it ideal for music genre grouping tasks.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================
+             PCA VISUALIZATION SECTION
+             ======================================== -->
+        <section id="pca-section" class="section">
+            <h2>📊 PCA Visualization - Song Similarity Map</h2>
+            
+            <!-- Visualization Controls -->
+            <div class="visualization-controls">
+                <button id="view-toggle-btn" class="btn-primary">Switch to 3D View</button>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Search songs or genres..." autocomplete="off">
+                    <div id="search-results" class="search-results"></div>
+                </div>
+            </div>
+
+            <!-- Visualization Container -->
+            <div id="pca-visualization" class="visualization-container"></div>
+
+            <!-- Visualization Info -->
+            <div class="visualization-info">
+                <p><strong>What This Shows:</strong> Each point represents a song. Songs closer together have similar audio characteristics (tempo, energy, loudness, valence, danceability).</p>
+                <p><strong>Colors:</strong> Different colors represent the 10 discovered clusters. Black stars mark cluster centroids.</p>
+                <p><strong>2D PCA:</strong> 90.51% variance preserved (PC1: 51.32%, PC2: 39.19%) ⭐⭐⭐⭐⭐</p>
+                <p><strong>3D PCA:</strong> 99.81% variance preserved (PC1: 51.32%, PC2: 39.19%, PC3: 9.30%) ⭐⭐⭐⭐⭐</p>
+            </div>
+        </section>
+
+        <!-- ========================================
+             CLUSTER DISTRIBUTION SECTION
+             ======================================== -->
+        <section id="clusters-section" class="section">
+            <h2>🎼 Cluster Analysis</h2>
+            <div id="cluster-summary"></div>
+        </section>
+
+        <!-- ========================================
+             CLUSTER DETAILS SECTION
+             ======================================== -->
+        <section id="cluster-details-section" class="section">
+            <h2>🔍 Cluster Details</h2>
+            <p class="instruction-text">👆 Click on any cluster above to explore its details, feature profile, and member songs</p>
+            <div id="cluster-details" class="cluster-details-container"></div>
+        </section>
+
+        <!-- ========================================
+             DATASET INFORMATION SECTION
+             ======================================== -->
+        <section id="dataset-info" class="section">
+            <h2>📁 Dataset Information</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>Dataset</h4>
+                    <p>GTZAN</p>
+                </div>
+                <div class="info-card">
+                    <h4>Total Songs</h4>
+                    <p>1,000</p>
+                </div>
+                <div class="info-card">
+                    <h4>Genres</h4>
+                    <p>10 types</p>
+                </div>
+                <div class="info-card">
+                    <h4>Duration</h4>
+                    <p>30 sec/track</p>
+                </div>
+                <div class="info-card">
+                    <h4>Clusters</h4>
+                    <p>10 groups</p>
+                </div>
+                <div class="info-card">
+                    <h4>Features</h4>
+                    <p>5 dimensions</p>
+                </div>
+                <div class="info-card">
+                    <h4>Algorithm</h4>
+                    <p>K-Means</p>
+                </div>
+                <div class="info-card">
+                    <h4>Performance</h4>
+                    <p>90.51% (2D)</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Music Genre Clustering Project | Machine Learning - Unsupervised Learning</p>
+            <p>Developed by <strong>Vedant</strong> | <a href="https://github.com/Vedant9892/ml_music_genre_grouping" target="_blank" rel="noopener">View on GitHub</a></p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
+                Technologies: Python, Flask, scikit-learn, librosa, K-Means, GMM, PCA, Plotly, Chart.js
+            </p>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - Header Scroll Behavior
+         ======================================== -->
+    <script>
+        // ===================================================================
+        // HEADER SCROLL BEHAVIOR - Hide on scroll down, show on scroll up
+        // ===================================================================
+        (function() {
+            let lastScrollTop = 0;
+            let scrollThreshold = 100; // Start hiding after scrolling 100px
+            const header = document.querySelector('header');
+            let ticking = false;
+
+            // Use requestAnimationFrame for smooth performance
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        handleHeaderVisibility();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            function handleHeaderVisibility() {
+                const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Always show header at the top of the page
+                if (currentScrollTop <= scrollThreshold) {
+                    header.classList.remove('hide');
+                    header.classList.add('show');
+                    lastScrollTop = currentScrollTop;
+                    return;
+                }
+
+                // Scrolling down - hide header
+                if (currentScrollTop > lastScrollTop && currentScrollTop > scrollThreshold) {
+                    header.classList.add('hide');
+                    header.classList.remove('show');
+                } 
+                // Scrolling up - show header
+                else if (currentScrollTop < lastScrollTop) {
+                    header.classList.remove('hide');
+                    header.classList.add('show');
+                }
+
+                // Update last scroll position (prevent negative values)
+                lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+            }
+
+            // Initial state
+            handleHeaderVisibility();
+        })();
+    </script>
+
+    <!-- ========================================
+         JAVASCRIPT - Dashboard Functionality
+         ======================================== -->
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+    <!-- ========================================
+         LOADING INDICATOR (Optional)
+         ======================================== -->
+    <script>
+        // Show loading state while data is being fetched
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth fade-in animation to sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Handle search results visibility
+        document.addEventListener('click', function(event) {
+            const searchResults = document.getElementById('search-results');
+            const searchInput = document.getElementById('search-input');
+            
+            if (searchResults && searchInput) {
+                // Hide search results when clicking outside
+                if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+                    searchResults.innerHTML = '';
+                    searchResults.style.display = 'none';
+                }
+            }
+        });
+
+        // Keyboard navigation for search
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        searchInput.value = '';
+                        document.getElementById('search-results').innerHTML = '';
+                    }
+                });
+            }
+        });
+
+        // Smooth scroll to sections
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const targetPosition = section.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Error handling for failed API requests
+        window.addEventListener('error', function(e) {
+            console.error('Error occurred:', e.error);
+            // You can add custom error handling UI here
+        });
+
+        // Log page load time for performance monitoring
+        window.addEventListener('load', function() {
+            const loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
+            console.log(`Dashboard loaded in ${loadTime}ms`);
+        });
+    </script>
+
+    <!-- ========================================
+         ANALYTICS (Optional - Add your tracking)
+         ======================================== -->
+    <!-- <script>
+        // Add Google Analytics or other tracking here
+    </script> -->
+
+</body>
+</html>
