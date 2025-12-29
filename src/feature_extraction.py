@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 from tqdm import tqdm
-
+#audio feature extraction for music genre clustering
 class AudioFeatureExtractor:
     """Extract 5 key features from audio files for clustering."""
     
@@ -70,7 +70,7 @@ class AudioFeatureExtractor:
         df.fillna(0, inplace=True)
         
         return df
-    
+    #save features to CSV
     def save_features(self, output_path):
         """Extract and save features to CSV."""
         df = self.extract_all_features()

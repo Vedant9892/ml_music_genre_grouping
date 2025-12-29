@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
-
+#Load and preprocess data from CSV file for music genre clustering
 def load_and_preprocess(filepath, feature_columns=None):
     """
     Load CSV file and preprocess features
@@ -36,6 +36,6 @@ def load_and_preprocess(filepath, feature_columns=None):
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
     
-    print("✓ Data preprocessing completed")
+    print("Data preprocessing completed")
     
     return X_scaled, df, scaler, feature_columns
